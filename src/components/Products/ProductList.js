@@ -13,10 +13,12 @@ export default class ProductList extends Component {
                            <a href="#">
                               <img src={ product.image } alt={ product.title } />
                               <p>{ product.title }</p>
+                              
                            </a>
                         <div className="product-price">
                            <div>
                               { formatCurrency (product.price) }
+                              <p>{ product.size }</p>
                            </div>
                            <button className="button primary">
                                  Add to Cart
