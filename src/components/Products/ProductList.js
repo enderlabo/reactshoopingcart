@@ -10,7 +10,7 @@ export default class ProductList extends Component {
                   this.props.products.map( product => (
                      <li key={ product._id }>
                         <div className="product">
-                           <a href="#">
+                           <a href="/">
                               <img src={ product.image } alt={ product.title } />
                               <p>{ product.title }</p>
                               
@@ -20,7 +20,7 @@ export default class ProductList extends Component {
                               { formatCurrency (product.price) }
                               <p>{ product.size }</p>
                            </div>
-                           <button className="button primary">
+                           <button onClick={ () => this.props.addToCart(product) } className="button primary">
                                  Add to Cart
                            </button>
                         </div>
