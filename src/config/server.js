@@ -4,25 +4,15 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const shortId = require('shortid');
 
+const app = express();
+app.use(bodyParser.json());
 
+mongoose.connect( "mongodb://localhost:27017/react-shooping-cart-db ", {
 
-mongoose.connect( "mongodb://localhost:27017/react-shopping-cart-db ", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
-}).then( () => {
-
-    const app = express();
-    app.use(bodyParser.json());
-    
-    app.get("/", ( req, res ) => {
-        res.send("updated");
-    })
-    
-    const port = process.env.PORT || 5000;
-
-    app.listen( port, () => console.log(" server at https://localhost:5000 ") );
-})
+});
 
 //Find your model
 const Product = mongoose.model("products", new mongoose.Schema({
