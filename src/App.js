@@ -3,7 +3,9 @@ import { Provider } from 'react-redux';
 import Cart from './components/Cart/Cart';
 import Filter from './components/Filter/Filter';
 import ProductList from './components/Products/ProductList';
-import dataProducts from './data/dataProducts';
+import productsData from './data/dataProduct';
+// import  dataProducts  from './data/dataProducts';
+import heroes from './data/heroes';
 import store from './store/store';
 
 
@@ -11,8 +13,9 @@ class App extends React.Component {
    constructor(){
       super();
       this.state = {
-         products: dataProducts.products,
-         cartItems: JSON.parse( localStorage.getItem("cartItems") || "[]" ),  
+         products: productsData,
+         cartItems: JSON.parse( localStorage.getItem("cartItems") || "{}" ),
+         heroes: heroes,  
          
          //  JSON.parse( localStorage.getItem("cartItems")) ?
          //  localStorage.getItem("cartItems") : [],
@@ -21,8 +24,10 @@ class App extends React.Component {
       }
    }
 
+  
+
    createOrder = (order) => {
-      alert("Need to save order for " + " " + order.name);
+      alert("Need to save order for " + order.name);
    }
 
    addToCart = (product) => {
@@ -76,18 +81,21 @@ class App extends React.Component {
 
       console.log(event.target.value);
       if( event.target.value === '' ){
-         this.setState({ size: event.target.value, products: dataProducts.products });
+         this.setState({ size: event.target.value, products: productsData });
       } else {
       this.setState({
 
             size: event.target.value,
-            products: dataProducts.products.filter
+            products: productsData.filter
             ( product => product.availableSizes.indexOf(event.target.value) >= 0 )
          });
       }
    }
  
-   render(){
+   render(){ 
+      console.log(this.state.products)
+      console.log(this.state.heroes)
+      
       return (
          <Provider store= { store }>
             <div className="grid-container">
@@ -105,7 +113,9 @@ class App extends React.Component {
                         sortProducts= { this.sortProducts }
                      />
                      <ProductList products={ this.state.products } 
-                        addToCart= { this.addToCart } />
+                        addToCart= { this.addToCart } 
+                        sort= { this.state.sort }
+                        />
                         
                      </div>
                      <div className="sideBar"> 
@@ -123,5 +133,7 @@ class App extends React.Component {
       );
     }
    }
+
+  
 
 export default App;

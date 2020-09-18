@@ -3,8 +3,8 @@ import { formatCurrency } from '../../utils/formatCurrency'
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 import Modal from 'react-modal';
-import { connect } from 'react-redux';
 import { productsAction } from '../../redux/actions/productsAction';
+import { connect } from 'react-redux';
 
 class ProductList extends Component {
    constructor(props){
@@ -13,12 +13,16 @@ class ProductList extends Component {
          product: null
       };
 
+      console.log(props.products)
+
    }
 
    componentDidMount() {
       this.props.productsAction();
-      
+   
    }
+
+   
 
    openModal = (product) => {
       this.setState({
@@ -32,6 +36,7 @@ class ProductList extends Component {
    render() {
 
       const { product } = this.state;
+      console.log(product);
 
       return (
          <div>
@@ -42,7 +47,7 @@ class ProductList extends Component {
                } */}
                   <ul className="products">
                   {
-                     this.props.products.map( product => (
+                     this.props.products.map( (product) => (
                         <li key={ product._id }>
                            <div className="product">
                               <a href={ "#" +  product._id } onClick={ () => this.openModal(product) } >
@@ -112,5 +117,6 @@ class ProductList extends Component {
    }
 }
 
-export default connect(( state ) => ({ products: state.products.items }), { productsAction })
-( ProductList )
+export default connect( ( state ) => ({ products: state.products.items }), {
+   productsAction,
+} ) ( ProductList );
